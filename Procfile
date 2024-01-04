@@ -1,1 +1,1 @@
-web: gunicorn fridge_detective_backend.wsgi
+web: gunicorn fridge_detective.wsgi
