@@ -110,6 +110,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
 
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
     response_data = response.json()
+    # print(response_data)
     
     parsed_data=response_data['choices'][0]['message']['content']
     formatted_data = parsed_data.replace('```json\n', '').replace('```', '').strip()
@@ -127,7 +128,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
         image_urls=generate_images(title_list)
         for recipe, url in zip(parsed_list, image_urls):
             recipe['image_url'] = url
-        print(parsed_list)
+        # print(parsed_list)
 
         if 'usage' in response_data:
             tokens_used = response_data['usage'].get('total_tokens', 'Unknown')

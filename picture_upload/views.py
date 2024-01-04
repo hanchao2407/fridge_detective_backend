@@ -35,9 +35,9 @@ def upload_picture(request):
         recipe_amount = request.POST.get('recipe_amount')
         with_picture = request.POST.get('with_picture', 'false').lower() == 'true'  # Convert to boolean
         print(recipe_amount)
-        print(with_picture)
-        print(request.POST)
-        print(type(with_picture))
+        # print(with_picture)
+        # print(request.POST)
+        # print(type(with_picture))
 
         # Define a directory to save the image
         image_save_path = os.path.join(settings.MEDIA_ROOT, 'uploaded_images')
