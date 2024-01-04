@@ -83,14 +83,11 @@ WSGI_APPLICATION = 'fridge_detective.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgres',
-        'NAME': 'd87ls0vigtfb',
-        'USER':'vgmqfuvfxwfewh',
-        'PASSWORD':'97da2223ecbd3a86d8fbf64a0c939955344208f5abbd06458880f61fe04db5ec',
-        'HOST':'ec2-54-234-13-16.compute-1.amazonaws.com',
-        'PORT':'5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -133,6 +130,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
