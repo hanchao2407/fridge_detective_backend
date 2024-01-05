@@ -114,7 +114,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
     
     parsed_data=response_data['choices'][0]['message']['content']
     formatted_data = parsed_data.replace('```json\n', '').replace('```', '').strip()
-    # print(type(formatted_data))
+    print(type(formatted_data))
     try:
         parsed_list = json.loads(formatted_data)
     except json.JSONDecodeError:
