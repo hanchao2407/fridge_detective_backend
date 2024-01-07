@@ -20,7 +20,7 @@ client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 def resize_image(image_path, max_width=500):
     with Image.open(image_path) as img:
-        print("Image pixels: " + img.size)
+        print("Image pixels: " +  str(img.size))
         file_size = os.path.getsize(image_path)
         print(f"File size: {file_size} bytes")
         # Calculate the height using the aspect ratio
