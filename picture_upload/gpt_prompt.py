@@ -155,6 +155,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
 
         os.remove(resized_image_path)
         print(f"Resized image at {resized_image_path} has been deleted.")
+        print(parsed_list)
 
         return(parsed_list)
 
