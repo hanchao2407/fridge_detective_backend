@@ -83,6 +83,8 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
 
     recipe_request = 'generate ' + recipe_amount +'recipe based on ingredients on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
 
+    # recipe_json_format=
+
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
@@ -108,6 +110,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
                 ]
             }
         ],
+        "temperature": 0.2,
         "max_tokens": 3000
     }
 
