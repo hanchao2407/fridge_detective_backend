@@ -110,7 +110,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
                 ]
             }
         ],
-        "temperature": 0.2,
+        # "temperature": 0.2,
         "max_tokens": 3000
     }
 
