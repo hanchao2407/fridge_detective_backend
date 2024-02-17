@@ -84,6 +84,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
     recipe_request_1 = 'generate ' + recipe_amount +' recipe based on ingredients on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
     recipe_request_2 = 'generate ' + recipe_amount +' cooking recipe based on ingredients detected on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
     recipe_request_3 = 'generate ' + recipe_amount +' food recipe based on the groceries on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
+    recipe_request_4 = 'generate ' + recipe_amount +' tasty recipe based on the items on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
 
     # recipe_json_format=
 
@@ -118,7 +119,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
         return payload
 
 
-    requests_list=[recipe_request_1,recipe_request_2,recipe_request_3]
+    requests_list=[recipe_request_1,recipe_request_2,recipe_request_3,recipe_request_4]
 
     for index, request in enumerate(requests_list,start=1):
         print('indexxxx: ' + str(index))
