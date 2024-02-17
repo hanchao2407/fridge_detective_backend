@@ -81,9 +81,9 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
     resized_image_path = resize_image(image_path)
     base64_image = encode_image(resized_image_path)
 
-    recipe_request_1 = 'generate ' + recipe_amount +' recipe based on ingredients on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
-    recipe_request_2 = 'generate ' + recipe_amount +' cooking recipe based on ingredients detected on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
-    recipe_request_3 = 'generate ' + recipe_amount +' food recipe based on the groceries on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
+    recipe_request_1 = 'generate ' + recipe_amount +'recipe based on ingredients on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
+    recipe_request_2 = 'generate ' + recipe_amount +'cooking recipe based on ingredients detected on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
+    recipe_request_3 = 'generate ' + recipe_amount +'food recipe based on the groceries on the picture and purely return in json format as [{"title":"","shortdescription":"shortdescription", "preptime":"minutes","ingredients":[[ingredient, amount as string]], "instructions":[]}]'
 
     # recipe_json_format=
 
@@ -92,63 +92,52 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
         "Authorization": f"Bearer {api_key}"
     }
 
-    def payload(request):
-        payload = {
-            "model": "gpt-4-vision-preview",
-            "messages": [
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": request
-                        },
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": f"data:image/jpeg;base64,{base64_image}"
-                            }
+    
+    payload = {
+        "model": "gpt-4-vision-preview",
+        "messages": [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": recipe_request_1
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{base64_image}"
                         }
-                    ]
-                }
-            ],
-            # "temperature": 0.2,
-            "max_tokens": 3000
-        }
-        return payload
+                    }
+                ]
+            }
+        ],
+        # "temperature": 0.2,
+        "max_tokens": 3000
+    }
 
-
-    requests_list=[recipe_request_1,recipe_request_2,recipe_request_3]
-
-    for index, request in enumerate(requests_list,start=1):
-        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload(request))
-        response_data = response.json()
-        # print(request)
-        print(response_data)
-        
-        parsed_data=response_data['choices'][0]['message']['content']
-        formatted_data = parsed_data.replace('```json\n', '').replace('```', '').strip()
-        # print(type(formatted_data))
-        try:
-            parsed_list = json.loads(formatted_data)
-        except json.JSONDecodeError:
-        # Handle the error when the data is not valid JSON
-            print('json decode error')
-            parsed_list = "not a fridge"
-            if index < (len(requests_list)):
-                continue
-            os.remove(resized_image_path)
-            return parsed_list
-        except Exception as e:
-        # Handle other unforeseen errors
-            print(f"An error occurred: {e}")
-            parsed_list = "not a fridge"
-            if index < (len(requests_list)):
-                continue
-            os.remove(resized_image_path)
-            return parsed_list
-        # break
-        # print(parsed_list[1])
+    response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+    response_data = response.json()
+    print(response_data)
+    
+    parsed_data=response_data['choices'][0]['message']['content']
+    formatted_data = parsed_data.replace('```json\n', '').replace('```', '').strip()
+    # print(type(formatted_data))
+    try:
+        parsed_list = json.loads(formatted_data)
+    except json.JSONDecodeError:
+    # Handle the error when the data is not valid JSON
+        print('json decode error')
+        parsed_list = "not a fridge"
+        os.remove(resized_image_path)
+        return parsed_list
+    except Exception as e:
+    # Handle other unforeseen errors
+        print(f"An error occurred: {e}")
+        parsed_list = "not a fridge"
+        os.remove(resized_image_path)
+        return parsed_list
+    # print(parsed_list[1])
 
     
     if generate_with_image:

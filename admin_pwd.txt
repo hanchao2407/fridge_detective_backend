@@ -1,2 +1,6 @@
 ###
 gmail
+
+commands:
+git push heroku main
+heroku logs --tail --app tranquil-waters-32759
