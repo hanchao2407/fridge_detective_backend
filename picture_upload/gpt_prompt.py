@@ -7,7 +7,7 @@ import json
 import time
 from concurrent.futures import ThreadPoolExecutor  # Import ThreadPoolExecutor
 from openai import OpenAI
-
+import re
 
 
 # Load the environment variables from the .env file
@@ -51,10 +51,12 @@ def generate_images(prompts):
         response = client.images.generate(
             model="dall-e-2",
             prompt=prompt,
-            size="256x256",
-            quality="standard",
+            size="512x512",
+            quality="hd",
+            style='natural',
             n=1,
         )
+        
         return response.data[0].url
 
     # Start timing
@@ -130,7 +132,8 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
         print(response_data)
         
         parsed_data=response_data['choices'][0]['message']['content']
-        formatted_data = parsed_data.replace('```json\n', '').replace('```', '').strip()
+        # formatted_data = parsed_data.replace('```json\n', '').replace('```', '').strip()
+        formatted_data = re.sub(r'^```json\n|\n```$', '', parsed_data, flags=re.MULTILINE).strip()
         # print(type(formatted_data))
         try:
             parsed_list = json.loads(formatted_data)
