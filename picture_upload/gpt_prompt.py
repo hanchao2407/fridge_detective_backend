@@ -52,7 +52,7 @@ def generate_images(prompts):
             model="dall-e-2",
             prompt=prompt,
             size="512x512",
-            quality="hd",
+            quality="standard",
             style='natural',
             n=1,
         )
