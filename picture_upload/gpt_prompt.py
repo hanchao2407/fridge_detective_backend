@@ -53,7 +53,7 @@ def generate_images(prompts):
             prompt=prompt,
             size="512x512",
             quality="standard",
-            style='natural',
+            style='vivid',
             n=1,
         )
         
