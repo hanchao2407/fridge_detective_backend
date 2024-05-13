@@ -85,31 +85,26 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
     recipe_custom_function = [
         {
             'name': 'generate_recipe',
-            'description': 'generate a recipe and put in json format ',
+            'description': 'Generate a recipe and put it in JSON format',
             'parameters': {
                 'type': 'object',
                 'properties': {
-                    'title': {
-                        'type': 'string',
-                        'description': 'Name of the dish'
-                    },
-                    'shortdescription': {
-                        'type': 'string',
-                        'description': 'Short description of the recipe.'
-                    },
-                    'preptime': {
-                        'type': 'int',
-                        'description': 'the preparation time'
-                    },
+                    'title': {'type': 'string', 'description': 'Name of the dish'},
+                    'shortdescription': {'type': 'string', 'description': 'Short description of the recipe.'},
+                    'preptime': {'type': 'string', 'description': 'Preparation time in minutes'},
                     'ingredients': {
-                        'type': 'list',
-                        'description': '[[ingredient, amount as string]]'
+                        'type': 'array',
+                        'description': 'List of ingredients with amounts',
+                        'items': {
+                            'type': 'array',
+                            'items': {'type': 'string'}
+                        }
                     },
                     'instructions': {
-                        'type': 'list',
-                        'description': 'instruction step by step '
+                        'type': 'array',
+                        'description': 'Step-by-step instructions',
+                        'items': {'type': 'string'}
                     }
-                    
                 }
             }
         }
@@ -122,7 +117,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
 
     
     payload = {
-        "model": "gpt-4-vision-preview",
+        "model": "gpt-4o",
         "messages": [
             {
                 "role": "user",
@@ -149,6 +144,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image):
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
     response_data = response.json()
     print(response_data)
+    print("hallo")
     
     parsed_data=response_data['choices'][0]['message']['content']
     formatted_data = parsed_data.replace('```json\n', '').replace('```', '').strip()
