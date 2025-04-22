@@ -124,8 +124,8 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image,lang
     requests_list=[recipe_request_1,recipe_request_2,recipe_request_3,recipe_request_4]
 
     for index, request in enumerate(requests_list,start=1):
-        print('indexxxx: ' + str(index))
-        print('lengh ' + str(len(requests_list)))
+        print('index: ' + str(index))
+        print('length ' + str(len(requests_list)))
         response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload(request))
         response_data = response.json()
         # print(request)
