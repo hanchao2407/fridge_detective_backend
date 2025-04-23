@@ -97,7 +97,7 @@ def generate_recipe_from_image(image_path,recipe_amount,generate_with_image,lang
 
     def payload(request):
         payload = {
-            "model": "gpt-4o-mini",
+            "model": "gpt-4o",
             "messages": [
                 {
                     "role": "user",
