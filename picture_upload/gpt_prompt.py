@@ -49,11 +49,11 @@ def generate_images(prompts):
     def generate_image(prompt):
         # Assuming the 'client.images.generate' function and its parameters are defined elsewhere
         response = client.images.generate(
-            model="dall-e-2",
+            # model="dall-e-2",
             prompt=prompt,
             size="512x512",
-            quality="standard",
-            style='vivid',
+            # quality="standard",
+            # style='vivid',
             n=1,
         )
         
